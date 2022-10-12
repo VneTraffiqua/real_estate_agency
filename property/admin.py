@@ -6,6 +6,7 @@ from .models import Flat, Complaint
 class FlatAdmin(admin.ModelAdmin):
     search_fields = ('town', 'town_district', 'address')
     readonly_fields = ['created_at']
+    raw_id_fields = ('likes', )
 
 
 class ComplaintAdmin(admin.ModelAdmin):
