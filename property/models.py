@@ -97,3 +97,6 @@ class Owner(models.Model):
         related_name='owners_flats'
     )
 
+    def __str__(self):
+        return f'{self.owner}, {self.owner_pure_phone}'
+
