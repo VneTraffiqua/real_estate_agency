@@ -8,13 +8,18 @@ def get_owner_pure_phone(apps, schema_editor):
     flats = flats_db.objects.all()
     for flat in flats:
         owner_pure_phone = phonenumbers.parse(flat.owners_phonenumber, 'RU')
+        if not phonenumbers.is_valid_number(owner_pure_phone):
+            continue
         flat.owner_pure_phone = owner_pure_phone
         flat.save()
 
 
-def get_owner_pure_phone_backward(apps, schema_editor):
-    flats = apps.get_model('property', 'Flat')
-    flats.objects.all().update(owner_pure_phone=None)
+def owner_pure_phone_backward(apps, schema_editor):
+    flats_db = apps.get_model('property', 'Flat')
+    flats = flats_db.objects.all().update(owner_pure_phone=None)
+    for flat in flats:
+        flat.owner_pure_phone = None
+        flat.save()
 
 
 class Migration(migrations.Migration):
@@ -25,6 +30,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunPython(
-            get_owner_pure_phone, get_owner_pure_phone_backward
+            get_owner_pure_phone, owner_pure_phone_backward
         )
     ]
