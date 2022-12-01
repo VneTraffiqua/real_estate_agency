@@ -17,9 +17,6 @@ def get_owner_pure_phone(apps, schema_editor):
 def owner_pure_phone_backward(apps, schema_editor):
     flats_db = apps.get_model('property', 'Flat')
     flats = flats_db.objects.all().update(owner_pure_phone=None)
-    for flat in flats:
-        flat.owner_pure_phone = None
-        flat.save()
 
 
 class Migration(migrations.Migration):
