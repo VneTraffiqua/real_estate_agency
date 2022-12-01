@@ -10,7 +10,7 @@ def get_owner_pure_phone(apps, schema_editor):
         owner_pure_phone = phonenumbers.parse(flat.owners_phonenumber, 'RU')
         if not phonenumbers.is_valid_number(owner_pure_phone):
             continue
-        flat.owner_pure_phone = owner_pure_phone
+        flat.pure_phone = owner_pure_phone
         flat.save()
 
 
