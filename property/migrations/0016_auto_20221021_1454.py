@@ -9,7 +9,7 @@ def fill_owners_fields(apps, schema_editor):
     for flat in flats:
         with transaction.atomic():
             flat.flats.get_or_create(
-                owner=flat.owner,
+                owner=flat.full_name,
                 owners_phonenumber=flat.owners_phonenumber,
                 owner_pure_phone=flat.pure_phone
             )
